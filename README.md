@@ -122,4 +122,4 @@ At any time, users can export conversations as:
 
 ## 📜 License
 
-Released under the **MIT License** — free for modification and redistribution with attribution.
+Released under the **MIT License**.
