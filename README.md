@@ -10,27 +10,6 @@ This project implements a therapy-style conversational agent using Streamlit and
 
 [https://www.figma.com/board/r2qgsg2mWeQp1G30gUHVQl/Chat-Therapy-Bot-Process-Flow](https://www.figma.com/board/r2qgsg2mWeQp1G30gUHVQl/Chat-Therapy-Bot-Process-Flow)
 
-### Embedded Preview
-
-(GitHub renders this on supported devices/browsers)
-
-```html
-<iframe 
-  style="border: none;" 
-  width="100%" 
-  height="520" 
-  src="https://www.figma.com/embed?embed_host=github&url=https://www.figma.com/board/r2qgsg2mWeQp1G30gUHVQl/Chat-Therapy-Bot-Process-Flow">
-</iframe>
-```
-
-### Static Preview (Fallback)
-
-![Design Preview](./assets/figma_preview.png)
-
-*(Use this path after placing the file in the repo as `assets/figma_preview.png`.)*
-
----
-
 ## Features
 
 ### Therapy-Style Chat
