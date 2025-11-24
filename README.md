@@ -1,44 +1,67 @@
-# Chat Therapy Bot  
-A minimal, clean, therapy-style conversational AI built using **Streamlit** and **Groq’s LLaMA-3 models**.  
-It provides an empathetic, safe-space chat experience with **PDF/Markdown export**, **crisis detection**, and **scope-guarded responses**.
+# Chat Therapy Bot
+
+This project implements a therapy-style conversational agent using Streamlit and Groq’s LLaMA-3 models. It provides structured, safe, and predictable responses appropriate for mental-wellbeing use cases.
+
+---
+
+## Design Flow (Figma)
+
+### Figma Board
+
+[https://www.figma.com/board/r2qgsg2mWeQp1G30gUHVQl/Chat-Therapy-Bot-Process-Flow](https://www.figma.com/board/r2qgsg2mWeQp1G30gUHVQl/Chat-Therapy-Bot-Process-Flow)
+
+### Embedded Preview
+
+(GitHub renders this on supported devices/browsers)
+
+```html
+<iframe 
+  style="border: none;" 
+  width="100%" 
+  height="520" 
+  src="https://www.figma.com/embed?embed_host=github&url=https://www.figma.com/board/r2qgsg2mWeQp1G30gUHVQl/Chat-Therapy-Bot-Process-Flow">
+</iframe>
+```
+
+### Static Preview (Fallback)
+
+![Design Preview](./assets/figma_preview.png)
+
+*(Use this path after placing the file in the repo as `assets/figma_preview.png`.)*
 
 ---
 
 ## Features
 
-### Therapy-Style Chat  
-- Warm, concise mental-wellbeing guidance  
-- Optional *Segmented Explainer* mode  
-- Streaming text for long responses  
+### Therapy-Style Chat
 
-### Crisis Detection  
-Highlights crisis phrases (e.g., *self-harm, suicide*)  
-Shows a safety banner prompting real-world emergency help.
+Focused, supportive conversation flow delivering short, empathetic responses designed for general mental wellbeing.
 
-### Strict Scope Enforcement  
-The bot blocks topics outside therapy scope:  
-- Finance, legal, travel, coding  
-- Medical diagnosis or prescriptions  
-- Police, HR, politics, etc.
+### Crisis Detection
 
-If out-of-scope → a supportive refusal + alternative wellbeing framing.
+Monitors user messages for crisis keywords and activates an in-app crisis banner with guidance to immediate real-world help resources.
 
-### PDF & Markdown Export  
-Exports the full chat as beautifully formatted PDF or clean MD text.
+### Scope Control
 
-### Local Session Memory  
-Session stored only in memory — **no cloud logging, no files written**.
+Strictly prevents answers outside mental-wellbeing scope. Topics related to medical advice, legal, finance, travel, academic work, coding, or operational instructions are refused with a standard supportive message.
+
+### PDF and Markdown Export
+
+Allows users to export the entire chat session either as a formatted PDF or clean Markdown transcript.
+
+### Local Session Memory
+
+Session content is stored only in Streamlit session memory. No persistent storage or logging.
 
 ---
 
-# Project Structure  
-Matches your real folder exactly:
+## Project Structure
 
 ```
 genAI_ChatTherapy_bot/
 │
 ├── app2.py               # Main Streamlit UI
-├── agent.py              # Groq model wrapper & system prompt
+├── agent.py              # Groq model wrapper and system prompt
 ├── requirements.txt      # Python dependencies
 ├── .env                  # GROQ_API_KEY (ignored in git)
 │
@@ -51,98 +74,95 @@ genAI_ChatTherapy_bot/
 
 ---
 
-# Installation
+## Installation
 
-### **1. Create venv (recommended)**
+### 1. Create a virtual environment
+
 ```bash
 python -m venv venv
-source venv/bin/activate   # Mac/Linux
+source venv/bin/activate   # Linux/Mac
 venv\Scripts\activate      # Windows
 ```
 
-### **2. Install requirements**
+### 2. Install dependencies
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### **3. Add your Groq API key**
-Create a file named **.env**:
+### 3. Add the Groq API key
+
+Create a `.env` file:
 
 ```
-GROQ_API_KEY=your_groq_key_here
+GROQ_API_KEY=your_key_here
 ```
 
 ---
 
-# Running the App
+## Running the Application
 
 ```bash
 streamlit run app2.py
 ```
 
-Open:  
+Then open:
+
+```
 http://localhost:8501
+```
 
 ---
 
-# How It Works
+## How It Works
 
-### **app2.py**
-- Handles UI layout and chat rendering  
-- Adds avatars depending on content  
-- Contains crisis detection logic  
-- Builds full prompt → forwarded to agent  
-- Exports PDF/MD  
-- Uses Streamlit session_state for message history
+### app2.py
 
-### **agent.py**
-- Loads Groq client  
-- Enforces strict therapy-safe system prompt  
-- Streams model output  
-- Returns a clean string reply
+* Handles full UI layout
+* Implements crisis detection logic
+* Renders chat messages with avatars
+* Builds the model prompt
+* Triggers PDF and Markdown exports
+* Stores message history in session_state
 
----
+### agent.py
 
-# 🛡️ Safety Rules (Enforced in `agent.py`)
-
-The model **must refuse**:
-- Medical diagnosis / medication  
-- Travel, shopping, coding, finance, legal  
-- Anything violent, hateful, or harm-related  
-- Searching for services or locations  
-
-Refusal template automatically used:
-> “I can't help with that topic here. I focus on mental wellbeing…”
-
-Crisis prompts trigger emergency suggestion (988 US or local services).
+* Wraps Groq model client
+* Contains the complete system prompt
+* Enforces safety and refusal logic
+* Streams the model’s token output
 
 ---
 
-# Exporting Chats
+## Safety Rules
 
-### **PDF Export**
-- Uses `FPDF`  
-- Auto page numbers  
-- Light card-style chat blocks  
-- Unicode font support (via DejaVuSans.ttf)
+The model is constrained to mental-wellbeing support only.
+It refuses to engage in:
 
-### **Markdown Export**
-- Simple readable format for journaling
+* Medical diagnosis, treatments, prescriptions
+* Legal, financial, travel, or technical advice
+* Violence-related or harmful content
+* Operational or actionable instructions
 
-Triggered via buttons at the bottom of the UI.
-
----
-
-# Future Enhancements
-
-- Mood tracking graph  
-- Conversation summary AI  
-- Daily reflection prompts  
-- User-defined journaling templates  
+Crisis-related content triggers an emergency-help banner.
 
 ---
 
-# Author  
-**Venkata Pavan Kumar Alapati**  
-Creator of *AIIDA*, *Stomes*, and multiple AI agent systems  
-M.S. Data Analytics — Clark University
+## Exporting Chats
+
+### PDF
+
+Uses FPDF with a clean page layout and a Unicode-compatible font.
+
+### Markdown
+
+Simple, readable transcript for journaling or personal record keeping.
+
+---
+
+## Author
+
+Venkata Pavan Kumar Alapati
+MS Data Analytics, Clark University
+Creator of AIIDA, Stomes, and multiple agent-based AI systems
+
