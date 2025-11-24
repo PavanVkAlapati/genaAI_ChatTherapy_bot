@@ -1,11 +1,11 @@
-# 🧠 Chat Therapy App
+# Chat Therapy App
 
 The **Chat Therapy App** is an empathetic, conversational AI built with Streamlit and Groq’s LLaMA-3.3-70B model.  
 It simulates guided therapeutic conversations — helping users reflect, express emotions, and document thoughts safely.
 
 ---
 
-## 🌿 Overview
+## Overview
 
 | Feature | Description |
 |----------|-------------|
@@ -17,21 +17,21 @@ It simulates guided therapeutic conversations — helping users reflect, express
 
 ---
 
-## 🧩 How It Works
+## How It Works
 
 1. The user starts the app through `hub.py` → **Chat Therapy** tile.  
 2. It loads `app3.py` (or `app2.py`) and initializes the **therapy agent** defined in `agent.py`.  
 3. Each conversation is stored locally under `/sessions/` for persistence.  
 4. Messages are rendered with visual cues:
-   - 🟢 **Therapist / Solution** — calm, structured tone  
-   - 🔴 **Boundary / Out-of-Scope** — gently declines unsafe requests  
+   - **Therapist / Solution** — calm, structured tone  
+   - **Boundary / Out-of-Scope** — gently declines unsafe requests  
 5. Users can **export the entire chat** into:
    - PDF with consistent formatting (uses `assets/DejaVuSans.ttf`)
    - Markdown file for journaling
 
 ---
 
-## 🗂️ Project Structure
+## Project Structure
 
 ```
 the_hub/
@@ -47,7 +47,7 @@ the_hub/
 
 ---
 
-## ⚙️ Setup
+## Setup
 
 1. **Clone and open the hub**
    ```bash
@@ -70,7 +70,7 @@ the_hub/
    ```bash
    streamlit run hub.py
    ```
-   → Click **🧠 Chat Therapy** on the hub screen.
+   → Click **Chat Therapy** on the hub screen.
 
 ---
 
@@ -83,7 +83,7 @@ the_hub/
 
 ---
 
-## 🧠 Model Details
+## Model Details
 
 - **Model:** `groq:llama-3.3-70b-versatile`
 - **Framework:** LangChain message schema (`HumanMessage`, `AIMessage`)
@@ -94,7 +94,7 @@ the_hub/
 
 ---
 
-## 📤 Export Options
+## Export Options
 
 At any time, users can export conversations as:
 
@@ -103,7 +103,7 @@ At any time, users can export conversations as:
 
 ---
 
-## 💡 Future Improvements
+## Future Improvements
 
 - [ ] Integrate mood tracking dashboard  
 - [ ] Add summarization and key-insight extraction  
@@ -112,14 +112,14 @@ At any time, users can export conversations as:
 
 ---
 
-## 👨‍💻 Author
+## Author
 
 **Venkata Pavan Kumar Alapati**  
-🎓 M.S. Data Analytics | Clark University  
-💼 AI & Data Engineer • Creator of *AIIDA* and *Stomes* projects  
+M.S. Data Analytics | Clark University  
+AI & Data Engineer • Creator of *AIIDA* and *Stomes* projects  
 
 ---
 
-## 📜 License
+## License
 
 Released under the **MIT License**.
