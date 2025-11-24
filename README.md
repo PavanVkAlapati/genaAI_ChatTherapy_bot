@@ -1,125 +1,148 @@
-# Chat Therapy App
-
-The **Chat Therapy App** is an empathetic, conversational AI built with Streamlit and Groq’s LLaMA-3.3-70B model.  
-It simulates guided therapeutic conversations — helping users reflect, express emotions, and document thoughts safely.
-
----
-
-## Overview
-
-| Feature | Description |
-|----------|-------------|
-| **Purpose** | Guided emotional reflection & conversational journaling |
-| **Engine** | `groq:llama-3.3-70b-versatile` via LangChain |
-| **UI** | Streamlit with message avatars (Therapist / Reflection cues) |
-| **Export Options** | Chat → PDF or Markdown transcript |
-| **Data Handling** | Local sessions only (no cloud logging) |
+# Chat Therapy Bot  
+A minimal, clean, therapy-style conversational AI built using **Streamlit** and **Groq’s LLaMA-3 models**.  
+It provides an empathetic, safe-space chat experience with **PDF/Markdown export**, **crisis detection**, and **scope-guarded responses**.
 
 ---
 
-## How It Works
+## Features
 
-1. The user starts the app through `hub.py` → **Chat Therapy** tile.  
-2. It loads `app3.py` (or `app2.py`) and initializes the **therapy agent** defined in `agent.py`.  
-3. Each conversation is stored locally under `/sessions/` for persistence.  
-4. Messages are rendered with visual cues:
-   - **Therapist / Solution** — calm, structured tone  
-   - **Boundary / Out-of-Scope** — gently declines unsafe requests  
-5. Users can **export the entire chat** into:
-   - PDF with consistent formatting (uses `assets/DejaVuSans.ttf`)
-   - Markdown file for journaling
+### Therapy-Style Chat  
+- Warm, concise mental-wellbeing guidance  
+- Optional *Segmented Explainer* mode  
+- Streaming text for long responses  
+
+### Crisis Detection  
+Highlights crisis phrases (e.g., *self-harm, suicide*)  
+Shows a safety banner prompting real-world emergency help.
+
+### Strict Scope Enforcement  
+The bot blocks topics outside therapy scope:  
+- Finance, legal, travel, coding  
+- Medical diagnosis or prescriptions  
+- Police, HR, politics, etc.
+
+If out-of-scope → a supportive refusal + alternative wellbeing framing.
+
+### PDF & Markdown Export  
+Exports the full chat as beautifully formatted PDF or clean MD text.
+
+### Local Session Memory  
+Session stored only in memory — **no cloud logging, no files written**.
 
 ---
 
-## Project Structure
+# Project Structure  
+Matches your real folder exactly:
 
 ```
-the_hub/
-├── app3.py            # or app2.py — main therapy app
-├── agent.py           # handles Groq API and response logic
-├── assets/
-│   ├── green.png      # therapist avatar
-│   ├── red.png        # out-of-scope avatar
-│   └── DejaVuSans.ttf # PDF export font
-├── sessions/          # auto-created local session storage
-└── .env               # contains GROQ_API_KEY (ignored in git)
+genAI_ChatTherapy_bot/
+│
+├── app2.py               # Main Streamlit UI
+├── agent.py              # Groq model wrapper & system prompt
+├── requirements.txt      # Python dependencies
+├── .env                  # GROQ_API_KEY (ignored in git)
+│
+└── assets/               # Icons + PDF font
+    ├── green.png
+    ├── red.png
+    ├── favicon.png
+    └── DejaVuSans.ttf
 ```
 
 ---
 
-## Setup
+# Installation
 
-1. **Clone and open the hub**
-   ```bash
-   git clone https://github.com/<your-username>/the_hub.git
-   cd the_hub
-   ```
+### **1. Create venv (recommended)**
+```bash
+python -m venv venv
+source venv/bin/activate   # Mac/Linux
+venv\Scripts\activate      # Windows
+```
 
-2. **Install dependencies**
-   ```bash
-   pip install -r requirements.txt
-   ```
+### **2. Install requirements**
+```bash
+pip install -r requirements.txt
+```
 
-3. **Set environment variables**
-   Create a `.env` file in the root:
-   ```
-   GROQ_API_KEY=your_groq_api_key_here
-   ```
+### **3. Add your Groq API key**
+Create a file named **.env**:
 
-4. **Run the app**
-   ```bash
-   streamlit run hub.py
-   ```
-   → Click **Chat Therapy** on the hub screen.
+```
+GROQ_API_KEY=your_groq_key_here
+```
 
 ---
 
-## 💾 Local Data
+# Running the App
 
-| Directory | Purpose |
-|------------|----------|
-| `/sessions/` | Stores chat history as JSON files. |
-| `/assets/` | Contains avatars, fonts, and icons used in the UI. |
+```bash
+streamlit run app2.py
+```
 
----
-
-## Model Details
-
-- **Model:** `groq:llama-3.3-70b-versatile`
-- **Framework:** LangChain message schema (`HumanMessage`, `AIMessage`)
-- **Response Guardrails:**
-  - No unsafe or medical advice
-  - Declines prompts violating scope
-  - Maintains reflective, emotionally-aware tone
+Open:  
+http://localhost:8501
 
 ---
 
-## Export Options
+# How It Works
 
-At any time, users can export conversations as:
+### **app2.py**
+- Handles UI layout and chat rendering  
+- Adds avatars depending on content  
+- Contains crisis detection logic  
+- Builds full prompt → forwarded to agent  
+- Exports PDF/MD  
+- Uses Streamlit session_state for message history
 
-- **PDF:** Professionally formatted with timestamps and speaker roles.  
-- **Markdown:** Lightweight plain-text version for journaling or reuse.
+### **agent.py**
+- Loads Groq client  
+- Enforces strict therapy-safe system prompt  
+- Streams model output  
+- Returns a clean string reply
 
 ---
 
-## Future Improvements
+# 🛡️ Safety Rules (Enforced in `agent.py`)
 
-- [ ] Integrate mood tracking dashboard  
-- [ ] Add summarization and key-insight extraction  
-- [ ] Enable sentiment-based conversation branching  
-- [ ] Optional end-of-session AI reflection summary  
+The model **must refuse**:
+- Medical diagnosis / medication  
+- Travel, shopping, coding, finance, legal  
+- Anything violent, hateful, or harm-related  
+- Searching for services or locations  
+
+Refusal template automatically used:
+> “I can't help with that topic here. I focus on mental wellbeing…”
+
+Crisis prompts trigger emergency suggestion (988 US or local services).
 
 ---
 
-## Author
+# Exporting Chats
 
+### **PDF Export**
+- Uses `FPDF`  
+- Auto page numbers  
+- Light card-style chat blocks  
+- Unicode font support (via DejaVuSans.ttf)
+
+### **Markdown Export**
+- Simple readable format for journaling
+
+Triggered via buttons at the bottom of the UI.
+
+---
+
+# Future Enhancements
+
+- Mood tracking graph  
+- Conversation summary AI  
+- Daily reflection prompts  
+- User-defined journaling templates  
+
+---
+
+# Author  
 **Venkata Pavan Kumar Alapati**  
-M.S. Data Analytics | Clark University  
-AI & Data Engineer • Creator of *AIIDA* and *Stomes* projects  
-
----
-
-## License
-
-Released under the **MIT License**.
+Creator of *AIIDA*, *Stomes*, and multiple AI agent systems  
+M.S. Data Analytics — Clark University
